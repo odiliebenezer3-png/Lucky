@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | CapCut Guide</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .admin-container {
+        padding: 40px 0;
+        min-height: 100vh;
+      }
+      .login-form,
+      .admin-panel {
+        max-width: 600px;
+        margin: 0 auto;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 32px;
+      }
+      .login-form h2,
+      .admin-panel h2 {
+        margin: 0 0 24px;
+        font-size: 24px;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--bg-soft);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 14px;
+      }
+      .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .button-group button {
+        flex: 1;
+      }
+      .btn {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #ff8350;
+      }
+      .btn-secondary {
+        background: var(--line);
+        color: var(--text);
+      }
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .btn-danger {
+        background: rgba(224, 93, 74, 0.2);
+        color: #e05d4a;
+      }
+      .btn-danger:hover {
+        background: rgba(224, 93, 74, 0.3);
+      }
+      .alert {
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        font-size: 14px;
+      }
+      .alert-error {
+        background: rgba(224, 93, 74, 0.2);
+        color: #e05d4a;
+        border: 1px solid rgba(224, 93, 74, 0.3);
+      }
+      .alert-success {
+        background: rgba(111, 191, 115, 0.2);
+        color: #6fbf73;
+        border: 1px solid rgba(111, 191, 115, 0.3);
+      }
+      .tutorial-item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: var(--bg-soft);
+      }
+      .tutorial-item h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      .tutorial-item p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .tutorial-item .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .tutorial-item button {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>CapCut Guide</span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="admin.html" class="active">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="admin-container">
+      <div class="container">
+        <div id="login-view" class="login-form">
+          <h2>Admin Login</h2>
+          <div id="login-error"></div>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                autocomplete="username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">
+              Log In
+            </button>
+          </form>
+        </div>
+
+        <div id="admin-view" class="admin-panel hidden">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px">
+            <h2>Manage Tutorials</h2>
+            <button class="btn btn-secondary" id="logout-btn">Log Out</button>
+          </div>
+
+          <div id="admin-error"></div>
+          <div id="admin-success"></div>
+
+          <button class="btn btn-primary" id="new-tutorial-btn" style="width: 100%; margin-bottom: 24px">
+            + New Tutorial
+          </button>
+
+          <div id="tutorial-list"></div>
+
+          <div id="editor-view" class="hidden">
+            <h3 id="editor-title">New Tutorial</h3>
+            <form id="editor-form">
+              <div class="form-group">
+                <label for="edit-title">Title</label>
+                <input type="text" id="edit-title" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-category">Category</label>
+                <input type="text" id="edit-category" placeholder="Beginner, Effects, etc." />
+              </div>
+              <div class="form-group">
+                <label for="edit-duration">Duration</label>
+                <input type="text" id="edit-duration" placeholder="e.g., 10 min" />
+              </div>
+              <div class="form-group">
+                <label for="edit-summary">Summary</label>
+                <input type="text" id="edit-summary" />
+              </div>
+              <div class="form-group">
+                <label for="edit-content">Content</label>
+                <textarea id="edit-content" required></textarea>
+              </div>
+              <div class="button-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-row">
+        <span>CapCut Guide</span>
+        <span>Admin Panel</span>
+      </div>
+    </footer>
+
+    <script>
+      const API_BASE = '/api';
+      const LOGIN_VIEW = document.getElementById('login-view');
+      const ADMIN_VIEW = document.getElementById('admin-view');
+
+      function getToken() {
+        return localStorage.getItem('capcut_token');
+      }
+
+      function setToken(token) {
+        localStorage.setItem('capcut_token', token);
+      }
+
+      function clearToken() {
+        localStorage.removeItem('capcut_token');
+      }
+
+      function showLoginView() {
+        LOGIN_VIEW.classList.remove('hidden');
+        ADMIN_VIEW.classList.add('hidden');
+      }
+
+      function showAdminView() {
+        LOGIN_VIEW.classList.add('hidden');
+        ADMIN_VIEW.classList.remove('hidden');
+        loadTutorials();
+      }
+
+      async function api(endpoint, options = {}) {
+        const token = getToken();
+        const headers = {
+          'Content-Type': 'application/json',
+          ...options.headers
+        };
+
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`${API_BASE}${endpoint}`, {
+          ...options,
+          headers
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Request failed');
+        }
+
+        return response.json();
+      }
+
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+          const data = await api('/admin/login', {
+            method: 'POST',
+            body: JSON.stringify({ username, password })
+          });
+          setToken(data.token);
+          showAdminView();
+        } catch (error) {
+          document.getElementById('login-error').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+        }
+      });
+
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        clearToken();
+        showLoginView();
+        document.getElementById('login-form').reset();
+      });
+
+      async function loadTutorials() {
+        try {
+          const tutorials = await api('/admin/tutorials');
+          const list = document.getElementById('tutorial-list');
+          list.innerHTML = tutorials
+            .map(
+              (t) => `
+            <div class="tutorial-item">
+              <h3>${t.title}</h3>
+              <p>${t.summary}</p>
+              <div class="actions">
+                <button class="btn btn-secondary" onclick="editTutorial('${t.slug}')">Edit</button>
+                <button class="btn btn-danger" onclick="deleteTutorial('${t.slug}')">Delete</button>
+              </div>
+            </div>
+          `
+            )
+            .join('');
+        } catch (error) {
+          document.getElementById('admin-error').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+        }
+      }
+
+      document.getElementById('new-tutorial-btn').addEventListener('click', () => {
+        document.getElementById('editor-title').textContent = 'New Tutorial';
+        document.getElementById('editor-form').reset();
+        document.getElementById('editor-form').dataset.slug = '';
+        document.getElementById('editor-view').classList.remove('hidden');
+      });
+
+      document.getElementById('cancel-btn').addEventListener('click', () => {
+        document.getElementById('editor-view').classList.add('hidden');
+      });
+
+      document.getElementById('editor-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const slug = e.target.dataset.slug;
+        const payload = {
+          title: document.getElementById('edit-title').value,
+          category: document.getElementById('edit-category').value,
+          duration: document.getElementById('edit-duration').value,
+          summary: document.getElementById('edit-summary').value,
+          content: document.getElementById('edit-content').value
+        };
+
+        try {
+          if (slug) {
+            await api(`/admin/tutorials/${slug}`, {
+              method: 'PUT',
+              body: JSON.stringify(payload)
+            });
+          } else {
+            await api('/admin/tutorials', {
+              method: 'POST',
+              body: JSON.stringify(payload)
+            });
+          }
+          document.getElementById('admin-success').innerHTML = `<div class="alert alert-success">Saved successfully!</div>`;
+          setTimeout(() => {
+            document.getElementById('admin-success').innerHTML = '';
+            document.getElementById('editor-view').classList.add('hidden');
+            loadTutorials();
+          }, 1500);
+        } catch (error) {
+          document.getElementById('admin-error').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+        }
+      });
+
+      window.editTutorial = async (slug) => {
+        try {
+          const t = await api(`/tutorials/${slug}`);
+          document.getElementById('editor-title').textContent = 'Edit Tutorial';
+          document.getElementById('edit-title').value = t.title;
+          document.getElementById('edit-category').value = t.category;
+          document.getElementById('edit-duration').value = t.duration;
+          document.getElementById('edit-summary').value = t.summary;
+          document.getElementById('edit-content').value = t.content;
+          document.getElementById('editor-form').dataset.slug = slug;
+          document.getElementById('editor-view').classList.remove('hidden');
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+
+      window.deleteTutorial = async (slug) => {
+        if (!confirm('Are you sure you want to delete this tutorial?')) return;
+        try {
+          await api(`/admin/tutorials/${slug}`, { method: 'DELETE' });
+          document.getElementById('admin-success').innerHTML = `<div class="alert alert-success">Deleted successfully!</div>`;
+          setTimeout(() => {
+            document.getElementById('admin-success').innerHTML = '';
+            loadTutorials();
+          }, 1500);
+        } catch (error) {
+          document.getElementById('admin-error').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+        }
+      };
+
+      // Check if already logged in
+      if (getToken()) {
+        showAdminView();
+      } else {
+        showLoginView();
+      }
+    </script>
+  </body>
+</html>
