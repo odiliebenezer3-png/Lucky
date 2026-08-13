@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: capcut-guide
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
