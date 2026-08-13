@@ -1,4 +1,4 @@
-# Jokky — CapCut Tutorial Site (with admin backend)
+# zenky cut — Tutorial Site (with admin backend)
 
 A one-page site: public tutorial feed + an admin login for creating,
 editing, and publishing/unpublishing tutorial posts. Posts are stored in

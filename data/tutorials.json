@@ -26,6 +26,78 @@
       "duration": "12 min",
       "summary": "Build energy with speed ramps, keyframes, and directional motion that keeps viewers engaged.",
       "content": "Speed ramps are one of the quickest ways to add drama to a scene. Start small, maintain consistency, and use the motion to enhance the storytelling instead of overwhelming it."
+    },
+    {
+      "id": 4,
+      "slug": "captions-text-effects",
+      "title": "Captions & text effects",
+      "category": "Beginner",
+      "duration": "9 min",
+      "summary": "Add readable captions, animate text on screen, and use typography to guide viewer attention.",
+      "content": "Text is your second voice in editing. Use bold fonts, high contrast backgrounds, and keep captions short. Animate text entry and exit to match the beat of your music."
+    },
+    {
+      "id": 5,
+      "slug": "color-grading-basics",
+      "title": "Color grading basics",
+      "category": "Intermediate",
+      "duration": "14 min",
+      "summary": "Master curves, LUTs, and color wheels to create consistent, professional color grading.",
+      "content": "Color grading sets the mood and tone of your video. Start with a base LUT, then fine-tune highlights and shadows. Keep colors consistent across shots for a polished look."
+    },
+    {
+      "id": 6,
+      "slug": "sound-design-music-sync",
+      "title": "Sound design & music sync",
+      "category": "Intermediate",
+      "duration": "13 min",
+      "summary": "Layer sound effects, manage audio levels, and sync cuts perfectly to beat drops.",
+      "content": "Audio is 50% of the viewing experience. Sync your cuts to beat drops and builds, layer in subtle sound effects, and always normalize your audio levels for consistent volume."
+    },
+    {
+      "id": 7,
+      "slug": "advanced-keyframing",
+      "title": "Advanced keyframing",
+      "category": "Advanced",
+      "duration": "16 min",
+      "summary": "Use keyframes to animate scale, rotation, position, and opacity with precision.",
+      "content": "Keyframing is where editing becomes art. Learn to create smooth easing, use bezier curves for natural motion, and combine multiple effects to build complex animations."
+    },
+    {
+      "id": 8,
+      "slug": "picture-in-picture-layers",
+      "title": "Picture-in-picture & layers",
+      "category": "Intermediate",
+      "duration": "11 min",
+      "summary": "Composite multiple clips, create dynamic layouts, and build multi-layer compositions.",
+      "content": "Layer your clips to tell multiple stories at once. Use scale, position, and blending modes to create professional picture-in-picture effects and dynamic visual layouts."
+    },
+    {
+      "id": 9,
+      "slug": "masking-cutouts",
+      "title": "Masking & cutouts",
+      "category": "Advanced",
+      "duration": "15 min",
+      "summary": "Use shape masks, track masks, and alpha channels to isolate and highlight subjects.",
+      "content": "Masking gives you surgical control over your clips. Create custom shapes, track moving subjects, and layer effects selectively for polished, professional results."
+    },
+    {
+      "id": 10,
+      "slug": "green-screen-chroma-key",
+      "title": "Green screen & chroma key",
+      "category": "Beginner",
+      "duration": "10 min",
+      "summary": "Set up and remove green screen backgrounds, and composite yourself into any environment.",
+      "content": "Good lighting on the green screen is key. Shoot with even lighting, use high contrast backgrounds, and adjust the chroma key tolerance carefully to preserve detail."
+    },
+    {
+      "id": 11,
+      "slug": "cinematic-titles",
+      "title": "Creating cinematic titles",
+      "category": "Intermediate",
+      "duration": "12 min",
+      "summary": "Build professional opening sequences with animated text, effects, and music timing.",
+      "content": "Titles set the tone for your entire video. Combine text animation, motion graphics, and music to create a memorable opening that hooks your viewers immediately."
     }
   ],
   "resources": [
