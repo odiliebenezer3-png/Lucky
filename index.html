@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jokky — CapCut Tutorials</title>
+<meta name="description" content="Editing tutorials, CapCut techniques, and behind-the-scenes breakdowns from Jokky.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0b0d;
+    --surface: #17171a;
+    --surface-2: #1f1f23;
+    --line: #2a2a2f;
+    --text: #e9e7e1;
+    --muted: #8d8c92;
+    --accent: #ff4d2e;      /* tally-light red */
+    --accent-dim: #7a2717;
+    --amber: #d8a54a;       /* timecode amber */
+    --radius: 3px;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    position: relative;
+  }
+  /* film grain overlay */
+  body::before{
+    content:"";
+    position: fixed; inset:0;
+    pointer-events:none;
+    z-index: 999;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+  h1,h2,h3{ font-family:'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; margin: 0; }
+  a{ color: inherit; }
+  .wrap{ max-width: 840px; margin: 0 auto; padding: 0 20px; }
+
+  /* header / timecode bar */
+  header.topbar{
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    position: sticky; top:0; z-index: 10;
+  }
+  .topbar-inner{
+    max-width: 840px; margin:0 auto; padding: 14px 20px;
+    display:flex; align-items:center; justify-content: space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .rec-dot{ width:9px; height:9px; border-radius:50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.35;} }
+  .brand-name{ font-family:'Oswald', sans-serif; font-weight:700; font-size:20px; letter-spacing:0.04em; }
+  .timecode{ color: var(--amber); font-size: 12px; letter-spacing: 0.05em; }
+  nav.tabs{ display:flex; gap:18px; font-size: 13px; }
+  nav.tabs a{ color: var(--muted); text-decoration:none; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav.tabs a.active{ color: var(--text); border-color: var(--accent); }
+
+  /* hero */
+  .hero{ padding: 56px 0 36px; border-bottom: 1px solid var(--line); }
+  .eyebrow{ color: var(--accent); font-size: 12px; letter-spacing: 0.14em; margin-bottom: 10px; }
+  .hero h1{ font-size: 40px; line-height: 1.05; max-width: 620px; }
+  .hero p{ color: var(--muted); max-width: 520px; margin-top: 14px; font-size: 14px; line-height: 1.6; }
+
+  /* post list */
+  .feed{ padding: 36px 0 60px; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .post-card{ background: var(--surface); padding: 22px; display:grid; grid-template-columns: 90px 1fr; gap: 18px; text-decoration:none; color: inherit; }
+  .post-card:hover{ background: var(--surface-2); }
+  .post-index{ color: var(--amber); font-size: 12px; padding-top: 3px; }
+  .post-card h3{ font-size: 20px; margin-bottom: 6px; }
+  .post-card .excerpt{ color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .post-card .meta{ color: var(--muted); font-size: 11px; margin-top: 10px; letter-spacing: 0.04em; }
+  .empty{ padding: 40px 22px; color: var(--muted); font-size: 13px; background: var(--surface); }
+
+  /* single post */
+  .post-detail{ padding: 44px 0 70px; }
+  .post-detail h1{ font-size: 32px; margin: 14px 0; }
+  .post-detail .meta{ color: var(--amber); font-size: 12px; letter-spacing: 0.04em; }
+  .post-body{ margin-top: 26px; font-size: 15px; line-height: 1.8; color: #d9d7d1; white-space: pre-wrap; }
+  .back-link{ display:inline-block; margin-bottom: 20px; color: var(--muted); text-decoration:none; font-size: 12px; }
+  .back-link:hover{ color: var(--accent); }
+
+  /* admin */
+  .admin-wrap{ padding: 44px 0 70px; }
+  .login-box{ max-width: 340px; margin: 60px auto; background: var(--surface); border: 1px solid var(--line); padding: 28px; border-radius: var(--radius); }
+  .login-box h2{ font-size: 18px; margin-bottom: 18px; }
+  label{ display:block; font-size: 11px; color: var(--muted); margin: 14px 0 6px; letter-spacing: 0.05em; }
+  input, textarea{
+    width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--text);
+    padding: 10px; font-family: inherit; font-size: 13px; border-radius: var(--radius);
+  }
+  textarea{ min-height: 220px; resize: vertical; line-height:1.6; }
+  input:focus, textarea:focus{ outline: none; border-color: var(--accent); }
+  button{
+    font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;
+    background: var(--accent); color: #16090a; border: none; padding: 10px 18px;
+    font-weight: 600; font-size: 13px; border-radius: var(--radius); cursor: pointer;
+  }
+  button:hover{ background: #ff6a4f; }
+  button.secondary{ background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  button.secondary:hover{ color: var(--text); border-color: var(--muted); }
+  button.danger{ background: transparent; color: #e05d4a; border: 1px solid var(--accent-dim); }
+  .error-msg{ color: var(--accent); font-size: 12px; margin-top: 12px; }
+  .success-msg{ color: #6fbf73; font-size: 12px; margin-top: 12px; }
+
+  .admin-header{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 24px; }
+  .admin-row{
+    display:grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items:center;
+    background: var(--surface); border: 1px solid var(--line); padding: 14px 16px; margin-bottom: 1px; font-size: 13px;
+  }
+  .status-pill{ font-size: 10px; padding: 3px 8px; border-radius: 20px; letter-spacing: 0.05em; }
+  .status-pill.pub{ background: rgba(111,191,115,0.15); color: #6fbf73; }
+  .status-pill.draft{ background: rgba(216,165,74,0.15); color: var(--amber); }
+  .editor{ background: var(--surface); border: 1px solid var(--line); padding: 24px; margin-top: 20px; border-radius: var(--radius); }
+  .editor-actions{ display:flex; gap: 10px; margin-top: 18px; align-items:center; }
+  .checkbox-row{ display:flex; align-items:center; gap:8px; margin-top:14px; }
+  .checkbox-row input{ width:auto; }
+
+  footer{ border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 11px; text-align:center; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#/" class="brand">
+      <span class="rec-dot"></span>
+      <span class="brand-name">JOKKY</span>
+      <span class="timecode" id="clock">00:00:00:00</span>
+    </a>
+    <nav class="tabs">
+      <a href="#/" data-route="/">Tutorials</a>
+      <a href="#/admin" data-route="/admin">Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app" class="wrap"></main>
+
+<footer>
+  <div class="wrap">JOKKY — CapCut editing tutorials. All footage and edits original.</div>
+</footer>
+
+<script>
+const API = '/api';
+const app = document.getElementById('app');
+
+function getToken(){ return localStorage.getItem('jokky_token'); }
+function setToken(t){ localStorage.setItem('jokky_token', t); }
+function clearToken(){ localStorage.removeItem('jokky_token'); }
+
+function fmtDate(iso){
+  if(!iso) return '';
+  const d = new Date(iso.replace(' ', 'T') + 'Z');
+  return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+// fake running timecode for the header, cosmetic only
+let tcSeconds = 0;
+setInterval(() => {
+  tcSeconds++;
+  const h = String(Math.floor(tcSeconds/3600)).padStart(2,'0');
+  const m = String(Math.floor((tcSeconds%3600)/60)).padStart(2,'0');
+  const s = String(tcSeconds%60).padStart(2,'0');
+  const f = String(Math.floor(Math.random()*24)).padStart(2,'0');
+  document.getElementById('clock').textContent = `${h}:${m}:${s}:${f}`;
+}, 1000);
+
+async function api(path, opts = {}){
+  const headers = opts.headers || {};
+  headers['Content-Type'] = 'application/json';
+  const token = getToken();
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  const res = await fetch(API + path, { ...opts, headers });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+// ---------- Routes ----------
+async function renderHome(){
+  app.innerHTML = `
+    <section class="hero">
+      <div class="eyebrow">// EDITING BREAKDOWNS</div>
+      <h1>CapCut techniques, shot by shot.</h1>
+      <p>Speed ramps, beat-sync transitions, and the grain settings that actually matter. Tutorials pulled straight from the Jokky edit bay.</p>
+    </section>
+    <section class="feed" id="feed"><div class="empty">Loading tutorials…</div></section>
+  `;
+  const feed = document.getElementById('feed');
+  try{
+    const posts = await api('/posts');
+    if (!posts.length){
+      feed.innerHTML = `<div class="empty">No tutorials published yet. Check back soon.</div>`;
+      return;
+    }
+    feed.innerHTML = posts.map((p, i) => `
+      <a class="post-card" href="#/post/${p.slug}">
+        <div class="post-index">${String(i+1).padStart(2,'0')}</div>
+        <div>
+          <h3>${escapeHtml(p.title)}</h3>
+          <div class="excerpt">${escapeHtml(p.excerpt || '')}</div>
+          <div class="meta">${fmtDate(p.created_at)}</div>
+        </div>
+      </a>
+    `).join('');
+  }catch(e){
+    feed.innerHTML = `<div class="empty">Couldn't load tutorials. ${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function renderPost(slug){
+  app.innerHTML = `<div class="post-detail"><div class="empty">Loading…</div></div>`;
+  try{
+    const p = await api('/posts/' + encodeURIComponent(slug));
+    app.innerHTML = `
+      <div class="post-detail">
+        <a class="back-link" href="#/">&larr; All tutorials</a>
+        <div class="meta">${fmtDate(p.created_at)}</div>
+        <h1>${escapeHtml(p.title)}</h1>
+        <div class="post-body">${escapeHtml(p.body)}</div>
+      </div>
+    `;
+  }catch(e){
+    app.innerHTML = `<div class="post-detail"><a class="back-link" href="#/">&larr; All tutorials</a><div class="empty">Tutorial not found.</div></div>`;
+  }
+}
+
+function renderLogin(errorMsg){
+  app.innerHTML = `
+    <div class="login-box">
+      <h2>// ADMIN LOGIN</h2>
+      <form id="login-form">
+        <label>Username</label>
+        <input type="text" id="username" autocomplete="username" required>
+        <label>Password</label>
+        <input type="password" id="password" autocomplete="current-password" required>
+        <div class="editor-actions">
+          <button type="submit">Log in</button>
+        </div>
+        ${errorMsg ? `<div class="error-msg">${escapeHtml(errorMsg)}</div>` : ''}
+      </form>
+    </div>
+  `;
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    try{
+      const data = await api('/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+      setToken(data.token);
+      renderAdminDashboard();
+    }catch(err){
+      renderLogin(err.message);
+    }
+  });
+}
+
+async function renderAdminDashboard(){
+  if (!getToken()) return renderLogin();
+  app.innerHTML = `
+    <div class="admin-wrap">
+      <div class="admin-header">
+        <h2>// TUTORIAL POSTS</h2>
+        <div style="display:flex; gap:10px;">
+          <button id="new-post-btn">+ New post</button>
+          <button class="secondary" id="logout-btn">Log out</button>
+        </div>
+      </div>
+      <div id="admin-list"><div class="empty">Loading…</div></div>
+      <div id="editor-slot"></div>
+    </div>
+  `;
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    clearToken();
+    renderLogin();
+  });
+  document.getElementById('new-post-btn').addEventListener('click', () => renderEditor(null));
+
+  const list = document.getElementById('admin-list');
+  try{
+    const posts = await api('/admin/posts');
+    if (!posts.length){
+      list.innerHTML = `<div class="empty">No posts yet. Create your first tutorial.</div>`;
+      return;
+    }
+    list.innerHTML = posts.map(p => `
+      <div class="admin-row">
+        <div>
+          <div>${escapeHtml(p.title)}</div>
+          <div class="meta" style="margin-top:4px;">${fmtDate(p.created_at)}</div>
+        </div>
+        <span class="status-pill ${p.published ? 'pub' : 'draft'}">${p.published ? 'Published' : 'Draft'}</span>
+        <button class="secondary" data-edit="${p.id}">Edit</button>
+        <button class="danger" data-del="${p.id}">Delete</button>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => renderEditor(btn.dataset.edit));
+    });
+    list.querySelectorAll('[data-del]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!confirm('Delete this post? This cannot be undone.')) return;
+        try{
+          await api('/admin/posts/' + btn.dataset.del, { method: 'DELETE' });
+          renderAdminDashboard();
+        }catch(e){ alert(e.message); }
+      });
+    });
+  }catch(e){
+    if (e.message.includes('token')) return renderLogin('Session expired. Log in again.');
+    list.innerHTML = `<div class="empty">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function renderEditor(id){
+  const slot = document.getElementById('editor-slot');
+  let post = { title: '', excerpt: '', body: '', published: 0 };
+  if (id){
+    try{ post = await api('/admin/posts/' + id); }
+    catch(e){ alert(e.message); return; }
+  }
+  slot.innerHTML = `
+    <div class="editor">
+      <h3>${id ? 'Edit post' : 'New post'}</h3>
+      <label>Title</label>
+      <input type="text" id="f-title" value="${escapeHtml(post.title)}" required>
+      <label>Excerpt (shown in the feed)</label>
+      <input type="text" id="f-excerpt" value="${escapeHtml(post.excerpt || '')}">
+      <label>Body</label>
+      <textarea id="f-body">${escapeHtml(post.body || '')}</textarea>
+      <div class="checkbox-row">
+        <input type="checkbox" id="f-published" ${post.published ? 'checked' : ''}>
+        <label style="margin:0;">Published (visible to visitors)</label>
+      </div>
+      <div class="editor-actions">
+        <button id="save-btn">Save</button>
+        <button class="secondary" id="cancel-btn">Cancel</button>
+      </div>
+      <div id="editor-msg"></div>
+    </div>
+  `;
+  document.getElementById('cancel-btn').addEventListener('click', () => { slot.innerHTML = ''; });
+  document.getElementById('save-btn').addEventListener('click', async () => {
+    const payload = {
+      title: document.getElementById('f-title').value.trim(),
+      excerpt: document.getElementById('f-excerpt').value.trim(),
+      body: document.getElementById('f-body').value,
+      published: document.getElementById('f-published').checked ? 1 : 0
+    };
+    if (!payload.title || !payload.body){
+      document.getElementById('editor-msg').innerHTML = `<div class="error-msg">Title and body are required.</div>`;
+      return;
+    }
+    try{
+      if (id) await api('/admin/posts/' + id, { method: 'PUT', body: JSON.stringify(payload) });
+      else await api('/admin/posts', { method: 'POST', body: JSON.stringify(payload) });
+      slot.innerHTML = '';
+      renderAdminDashboard();
+    }catch(e){
+      document.getElementById('editor-msg').innerHTML = `<div class="error-msg">${escapeHtml(e.message)}</div>`;
+    }
+  });
+}
+
+// ---------- Router ----------
+function setActiveTab(route){
+  document.querySelectorAll('nav.tabs a').forEach(a => {
+    a.classList.toggle('active', a.dataset.route === route);
+  });
+}
+
+function router(){
+  const hash = window.location.hash || '#/';
+  const path = hash.slice(1) || '/';
+
+  if (path === '/'){
+    setActiveTab('/');
+    renderHome();
+  } else if (path.startsWith('/post/')){
+    setActiveTab('');
+    renderPost(decodeURIComponent(path.slice('/post/'.length)));
+  } else if (path === '/admin'){
+    setActiveTab('/admin');
+    getToken() ? renderAdminDashboard() : renderLogin();
+  } else {
+    setActiveTab('/');
+    renderHome();
+  }
+}
+
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', router);
+</script>
+
+</body>
+</html>
