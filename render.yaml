@@ -5,6 +5,8 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: npm start
+    domains:
+      - zenkycut.com
     envVars:
       - key: PORT
         value: 3000

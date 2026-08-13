@@ -1,7 +1,8 @@
 {
   "name": "capcut-guide",
   "version": "1.0.0",
-  "description": "CapCut tutorial website with a simple backend API",
+  "description": "zenky cut tutorial website with a simple backend API",
+  "homepage": "https://zenkycut.com",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
