@@ -1,0 +1,45 @@
+{
+  "tutorials": [
+    {
+      "id": 1,
+      "slug": "cut-a-clean-first-edit",
+      "title": "Cut a clean first edit",
+      "category": "Beginner",
+      "duration": "8 min",
+      "summary": "Learn timeline basics, trimming, and how to create a smooth story flow with your footage.",
+      "content": "Start by organizing your clips into groups. Trim the dead space, build a rough structure, and keep the story simple before you add effects. Good edits often start with clean timing and clean pacing."
+    },
+    {
+      "id": 2,
+      "slug": "match-cuts-transitions",
+      "title": "Match cuts & transitions",
+      "category": "Transitions",
+      "duration": "11 min",
+      "summary": "Use beat-sync, match cut transitions, and motion blur to make edits feel cinematic.",
+      "content": "Transitions should support the story rather than distract from it. Try matching action, movement, or color between clips and use a very light transition when the timing feels right."
+    },
+    {
+      "id": 3,
+      "slug": "speed-ramps-motion-effects",
+      "title": "Speed ramps & motion effects",
+      "category": "Effects",
+      "duration": "12 min",
+      "summary": "Build energy with speed ramps, keyframes, and directional motion that keeps viewers engaged.",
+      "content": "Speed ramps are one of the quickest ways to add drama to a scene. Start small, maintain consistency, and use the motion to enhance the storytelling instead of overwhelming it."
+    }
+  ],
+  "resources": [
+    {
+      "title": "Recommended workflow",
+      "description": "Start with rough assembly, then refine with motion, color, captions, and sound."
+    },
+    {
+      "title": "Best export settings",
+      "description": "Use consistent frame rate and a clean bitrate for crisp uploads on social platforms."
+    },
+    {
+      "title": "Captions and readability",
+      "description": "Use large text, high contrast, and short phrases to keep viewers focused."
+    }
+  ]
+}

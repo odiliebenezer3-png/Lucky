@@ -1,0 +1,13 @@
+{
+  "name": "capcut-guide",
+  "version": "1.0.0",
+  "description": "CapCut tutorial website with a simple backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

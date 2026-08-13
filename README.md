@@ -78,5 +78,4 @@ that route and I'll adapt it.
 
 - Passwords are hashed with bcrypt — never stored in plain text.
 - Change `JWT_SECRET` before deploying; don't use the example value.
-- There's currently one admin account. If you want multiple admins or
-  a "forgot password" flow later, that's a straightforward addition.
+- There's currently one admin account. If you want multiple admins 
