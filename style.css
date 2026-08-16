@@ -406,20 +406,24 @@ h2 {
 }
 
 .tutorial-thumb {
-  min-height: 200px;
-  background: linear-gradient(135deg, rgba(255, 106, 61, 0.22), rgba(74, 215, 255, 0.15), rgba(87, 217, 157, 0.1));
-  position: relative;
-}
+    position: relative;
+      height: 200px;
+        overflow: hidden;
+          background: linear-gradient(135deg, rgba(255, 106, 53, 0.15), rgba(23, 24, 39, 0.72));
+          }
 
-.tutorial-thumb::before {
-  content: "▶";
-  position: absolute;
-  inset: 0;
-  display: none;
-  place-items: center;
-  font-size: 2.4rem;
-  color: white;
-  opacity: 0.9;
+          .tutorial-thumb img {
+            position: absolute;
+              inset: 0;
+                width: 100%;
+                  height: 100%;
+                    object-fit: cover;
+                      display: block;
+                      }
+
+                      .tutorial-thumb::before {
+                        display: none;
+                        }
 }
 
 .tutorial-body {
