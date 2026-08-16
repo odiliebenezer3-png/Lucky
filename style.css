@@ -554,17 +554,49 @@ h2 {
     align-items: flex-start;
   }
 }
-.tutorial-thumb {
-    position: relative;
-      overflow: hidden;
+/* --- Tutorial card fix (final override) --- */
+.grid-3 {
+  display: grid;
+    grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       }
 
-      .tutorial-thumb img {
-        width: 100%;
-          height: 100%;
-            object-fit: cover;
-              display: none;
-                position: absolute;
-                  top: 0;
-                    left: 0;
-                    }
+      @media (max-width: 900px) {
+        .grid-3 {
+            grid-template-columns: 1fr;
+              }
+              }
+
+              .tutorial-card {
+                border: 1px solid var(--line);
+                  border-radius: 22px;
+                    overflow: hidden;
+                      background: rgba(17, 24, 39, 0.72);
+                        display: flex;
+                          flex-direction: column;
+                          }
+
+                          .tutorial-thumb {
+                            position: relative;
+                              height: 200px;
+                                overflow: hidden;
+                                  background: linear-gradient(135deg, rgba(255, 106, 53, 0.15), rgba(23, 24, 39, 0.72));
+                                    flex-shrink: 0;
+                                    }
+
+                                    .tutorial-thumb img {
+                                      position: absolute;
+                                        inset: 0;
+                                          width: 100%;
+                                            height: 100%;
+                                              object-fit: cover;
+                                                display: block;
+                                                }
+
+                                                .tutorial-thumb::before {
+                                                  display: none !important;
+                                                  }
+
+                                                  .tutorial-body {
+                                                    padding: 20px;
+                                                    }
