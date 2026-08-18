@@ -116,7 +116,7 @@ app.get('/api/admin/tutorials', verifyToken, (req, res) => {
 });
 
 app.post('/api/admin/tutorials', verifyToken, (req, res) => {
-  const { title, category, duration, summary, content, videoUrl } = req.body || {};
+  const { title, category, duration, summary, content, videoUrl, thumbnailUrl } = req.body || {};
 
   if (!title || !content) {
     return res.status(400).json({ error: 'Title and content are required' });
@@ -157,6 +157,7 @@ app.put('/api/admin/tutorials/:slug', verifyToken, (req, res) => {
     summary: summary || data.tutorials[index].summary,
     content: content ? content.trim() : data.tutorials[index].content,
     videoUrl: videoUrl !== undefined ? videoUrl.trim() : data.tutorials[index].videoUrl,
+    thumbnailUrl: thumbnailUrl !== undefined ? thumbnailUrl.trim() : data.tutorials[index].thumbnailUrl,
     slug: title ? slugify(title) : data.tutorials[index].slug
   };
 
