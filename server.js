@@ -141,7 +141,7 @@ app.post('/api/admin/tutorials', verifyToken, (req, res) => {
 });
 
 app.put('/api/admin/tutorials/:slug', verifyToken, (req, res) => {
-  const { title, category, duration, summary, content, videoUrl } = req.body || {};
+  const { title, category, duration, summary, content, videoUrl, thumbnailUrl } = req.body || {};
   const data = readData();
   const index = data.tutorials.findIndex((item) => item.slug === req.params.slug);
 
