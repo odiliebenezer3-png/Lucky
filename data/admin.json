@@ -1,9 +1,9 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "username": "Zenkycutsadmin",
-      "password": "$2a$10$WYYfQYkEEccFtKyz7AMtk.S0lBlKRb5JtTBFKuZnwhudPGkhk3xJO"
-    }
-  ]
-}
+    "users": [
+        {
+              "id": 1,
+                    "username": "Zenkycutsadmin",
+                          "password": "$2b$10$fj9kARiUl0g3AFjRDOtu4.vuBbXqE91LCl3.bFTZWeKiFbd50QQxS"
+                              }
+                                ]
+                                }
