@@ -131,6 +131,7 @@ app.post('/api/admin/tutorials', verifyToken, (req, res) => {
     duration: duration || '5 min',
     summary: summary || content.slice(0, 120),
     content: content.trim()
+    videoUrl: videoUrl ? videoUrl.trim() : ''
   };
 
   data.tutorials.unshift(newTutorial);
@@ -155,6 +156,7 @@ app.put('/api/admin/tutorials/:slug', verifyToken, (req, res) => {
     duration: duration || data.tutorials[index].duration,
     summary: summary || data.tutorials[index].summary,
     content: content ? content.trim() : data.tutorials[index].content,
+    videoUrl: videoUrl !== undefined ? videoUrl.trim() : data.tutorials[index].videoUrl,
     slug: title ? slugify(title) : data.tutorials[index].slug
   };
 

@@ -216,6 +216,10 @@
                 <input type="text" id="edit-summary" />
               </div>
               <div class="form-group">
+                  <label for="edit-video">Video Link (YouTube)</label>
+                    <input type="url" id="edit-video" placeholder="https://youtu.be/..." />
+                    </div>
+              <div class="form-group">
                 <label for="edit-content">Content</label>
                 <textarea id="edit-content" required></textarea>
               </div>
@@ -355,7 +359,8 @@
           category: document.getElementById('edit-category').value,
           duration: document.getElementById('edit-duration').value,
           summary: document.getElementById('edit-summary').value,
-          content: document.getElementById('edit-content').value
+          content: document.getElementById('edit-content').value,
+          videoUrl: document.getElementById('edit-video').value
         };
 
         try {
@@ -389,6 +394,7 @@
           document.getElementById('edit-category').value = t.category;
           document.getElementById('edit-duration').value = t.duration;
           document.getElementById('edit-summary').value = t.summary;
+          document.getElementById('edit-video').value = t.videoUrl || '';
           document.getElementById('edit-content').value = t.content;
           document.getElementById('editor-form').dataset.slug = slug;
           document.getElementById('editor-view').classList.remove('hidden');
