@@ -116,7 +116,7 @@ app.get('/api/admin/tutorials', verifyToken, (req, res) => {
 });
 
 app.post('/api/admin/tutorials', verifyToken, (req, res) => {
-  const { title, category, duration, summary, content } = req.body || {};
+  const { title, category, duration, summary, content, videoUrl } = req.body || {};
 
   if (!title || !content) {
     return res.status(400).json({ error: 'Title and content are required' });
@@ -130,7 +130,7 @@ app.post('/api/admin/tutorials', verifyToken, (req, res) => {
     category: category || 'General',
     duration: duration || '5 min',
     summary: summary || content.slice(0, 120),
-    content: content.trim()
+    content: content.trim(),
     videoUrl: videoUrl ? videoUrl.trim() : ''
   };
 
@@ -141,7 +141,7 @@ app.post('/api/admin/tutorials', verifyToken, (req, res) => {
 });
 
 app.put('/api/admin/tutorials/:slug', verifyToken, (req, res) => {
-  const { title, category, duration, summary, content } = req.body || {};
+  const { title, category, duration, summary, content, videoUrl } = req.body || {};
   const data = readData();
   const index = data.tutorials.findIndex((item) => item.slug === req.params.slug);
 
