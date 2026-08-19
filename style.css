@@ -600,3 +600,7 @@ h2 {
                                                   .tutorial-body {
                                                     padding: 20px;
                                                   }
+                                                  .grid-3 article.tutorial-card .tutorial-thumb {
+                                                      height: 230px !important;
+                                                      }
+                                                  
