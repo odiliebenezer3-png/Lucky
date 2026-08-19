@@ -603,4 +603,7 @@ h2 {
                                                   .grid-3 article.tutorial-card .tutorial-thumb {
                                                       height: 230px !important;
                                                       }
-                                                  
+                                                  .grid-3 article.tutorial-card:nth-child(1) .tutorial-thumb {
+                                                      height: 230px !important;
+                                                        flex-shrink: 0 !important;
+                                                  }
